@@ -24,7 +24,7 @@ public class ProfileHolder extends RecyclerView.ViewHolder {
     private TextView textProfileName;
     private TextView textProfileAge;
     private TextView textProfileBio;
-    private RoundedImageView imageView;
+    public RoundedImageView imageView;
     private Context context;
     private ProfileModel mProfileModel;
 
@@ -45,17 +45,13 @@ public class ProfileHolder extends RecyclerView.ViewHolder {
 
         setuBirthdayDate();
 
-        if(profileModel.getImage() != null) {
-            Picasso.with(context).load(profileModel.getImage()).into(imageView);
-        } else {
-            imageView.setImageDrawable(null);
-        }
+        if(profileModel.getImage() != null) Picasso.with(context).load(profileModel.getImage()).into(imageView);
     }
 
     private void setuBirthdayDate() {
         if(mProfileModel.getBirthday() != null) {
             String birthday = parseISO8601BirthdayDate();
-            textProfileAge.append("Age: ");
+            textProfileAge.append("Birth: ");
             textProfileAge.append(birthday);
         }
     }
@@ -83,7 +79,8 @@ public class ProfileHolder extends RecyclerView.ViewHolder {
             Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault()).parse(birthday);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
-            birthdayDate = Integer.toString(Calendar.getInstance().get(Calendar.YEAR) - calendar.get(Calendar.YEAR));
+
+            birthdayDate = new SimpleDateFormat("dd/MM/yyy").format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -78,6 +78,7 @@ public class ProfileAdapter extends BaseAdapter {
     @Override
     public void onViewRecycled(RecyclerView.ViewHolder holder) {
         super.onViewRecycled(holder);
+        if(holder instanceof ProfileHolder) ((ProfileHolder) holder).imageView.setImageDrawable(null);
     }
 
     @Override
